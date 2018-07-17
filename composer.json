@@ -1,0 +1,19 @@
+{
+    "name": "yelv123/luxurymore",
+    "type": "library",
+    "require": {
+        "php": ">=5.6",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "require-dev": {
+        "php": ">=5.6",
+        "guzzlehttp/guzzle": "^6.3"
+    },
+    "license": "Mit",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "LuxuryMore\\": "src/"
+        }
+    }
+}
