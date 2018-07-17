@@ -8,8 +8,12 @@
 
 namespace LuxuryMore;
 
-
+use GuzzleHttp\Client;
 class ImageTextOrigin
 {
-
+    public $httpclient;
+    public function __construct(Client $httpclient)
+    {
+        $this->httpclient=$httpclient;
+    }
 }

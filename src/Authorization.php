@@ -6,33 +6,29 @@
  * Time: 14:02
  */
 namespace LuxuryMore;
-use GuzzleHttp\Client;
+use App\Models\User;
 class Authorization
 {
-    public $user;
-    public function __construct($secret)
+    private $user;
+    private $secret;
+    private $httpClient;
+    public function __construct($secret,User $user)
     {
-
+        $this->user=$user;
+        $this->secret=$secret;
     }
 
-    public function setAuth(User $user,Client $httpClient)
+    public function getToken()
     {
-        $data=[
-            'timestamp'=>time(),
-            'account'=>'15201712014',
-            'country_code'=>'86'
-        ];
+        $data['timestamp']=time();
+        $data['account']=$this->user->account;
+        $data['country_code']=$this->user->country_code;
         ksort($data);
         $query=http_build_query($data);
-        $scrstr=
-        $query=$query."&api_secret=".$scrstr;
+        $query=$query."&api_secret=".$this->secret;
         $sign=md5(md5($query));
         $data['sign']=$sign;
-
         $token=base64_encode(json_encode($data));
-        echo  $token;
-        
-        
-
+        return $token;
     }
 }
