@@ -24,16 +24,25 @@ class ImageText
      */
     public function addImageText($imageText)
     {
+
         try
         {
-            $response=$this->httpClient->POST('/api/goods',['json'=>json_encode($imageText)]);
+            $response=$this->httpClient->POST('/api/goods',['json'=>$imageText]);
             $data=json_decode($response->getBody()->getContents(),true);
             return $data;
         }
         catch (\Exception $e)
         {
+            dd($e);
             $this->error=$e->getCode();
-            $this->errorMessage=$e->getMessage();
+            if($e->hasResponse())
+            {
+                $data=json_decode($e->getResponse()->getBody()->getContents(),true);
+                $this->errorMessage=$data['message'];
+            }
+            else{
+                $this->errorMessage=$e->getMessage();
+            }
             return false;
         }
     }
@@ -48,14 +57,21 @@ class ImageText
     {
         try
         {
-            $response=$this->httpClient->PUT("/api/goods/{$imageTextId}",['json'=>json_encode($imageText)]);
+            $response=$this->httpClient->PUT("/api/goods/{$imageTextId}",['json'=>$imageText]);
             $data=json_decode($response->getBody()->getContents(),true);
             return $data;
         }
         catch (\Exception $e)
         {
             $this->error=$e->getCode();
-            $this->errorMessage=$e->getMessage();
+            if($e->hasResponse())
+            {
+                $data=json_decode($e->getResponse()->getBody()->getContents(),true);
+                $this->errorMessage=$data['message'];
+            }
+            else{
+                $this->errorMessage=$e->getMessage();
+            }
             return false;
         }
     }
@@ -84,7 +100,14 @@ class ImageText
         }catch (\Exception $e)
         {
             $this->error=$e->getCode();
-            $this->errorMessage=$e->getMessage();
+            if($e->hasResponse())
+            {
+                $data=json_decode($e->getResponse()->getBody()->getContents(),true);
+                $this->errorMessage=$data['message'];
+            }
+            else{
+                $this->errorMessage=$e->getMessage();
+            }
             return false;
         }
     }
@@ -103,7 +126,14 @@ class ImageText
         }catch (\Exception $e)
         {
             $this->error=$e->getCode();
-            $this->errorMessage=$e->getMessage();
+            if($e->hasResponse())
+            {
+                $data=json_decode($e->getResponse()->getBody()->getContents(),true);
+                $this->errorMessage=$data['message'];
+            }
+            else{
+                $this->errorMessage=$e->getMessage();
+            }
             return false;
         }
     }
@@ -121,7 +151,14 @@ class ImageText
         }catch (\Exception $e)
         {
             $this->error=$e->getCode();
-            $this->errorMessage=$e->getMessage();
+            if($e->hasResponse())
+            {
+                $data=json_decode($e->getResponse()->getBody()->getContents(),true);
+                $this->errorMessage=$data['message'];
+            }
+            else{
+                $this->errorMessage=$e->getMessage();
+            }
             return false;
         }
     }
@@ -138,7 +175,14 @@ class ImageText
         }catch (\Exception $e)
         {
             $this->error=$e->getCode();
-            $this->errorMessage=$e->getMessage();
+            if($e->hasResponse())
+            {
+                $data=json_decode($e->getResponse()->getBody()->getContents(),true);
+                $this->errorMessage=$data['message'];
+            }
+            else{
+                $this->errorMessage=$e->getMessage();
+            }
             return false;
         }
     }
@@ -158,7 +202,14 @@ class ImageText
         }catch (\Exception $e)
         {
             $this->error=$e->getCode();
-            $this->errorMessage=$e->getMessage();
+            if($e->hasResponse())
+            {
+                $data=json_decode($e->getResponse()->getBody()->getContents(),true);
+                $this->errorMessage=$data['message'];
+            }
+            else{
+                $this->errorMessage=$e->getMessage();
+            }
             return false;
         }
     }
@@ -171,6 +222,7 @@ class ImageText
 
     public function getMessage()
     {
+
         return $this->errorMessage;
     }
 

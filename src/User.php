@@ -10,9 +10,9 @@ namespace LuxuryMore;
 use GuzzleHttp\Client;
 class User
 {
-    public $httpclient;
-    public function __construct(Client $httpclient)
+    public $httpClient;
+    public function __construct(Client $httpClient)
     {
-        $this->httpclient=$httpclient;
+        $this->httpClient=$httpClient;
     }
 }
