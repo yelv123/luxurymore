@@ -15,4 +15,26 @@ class User
     {
         $this->httpClient=$httpClient;
     }
+
+    public function checkVip()
+    {
+        try{
+            $response=$this->httpClient->get("/api/user/vip");
+            $data=json_decode($response->getBody()->getContents(),true);
+            return $data['vip']==2?false:true;
+        }catch (\Exception $e)
+        {
+            $this->error=$e->getCode();
+            if($e->hasResponse())
+            {
+                $data=json_decode($e->getResponse()->getBody()->getContents(),true);
+                $this->errorMessage=$data['message'];
+            }
+            else{
+                $this->errorMessage=$e->getMessage();
+            }
+            return false;
+        }
+    }
+
 }
