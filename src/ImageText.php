@@ -214,6 +214,35 @@ class ImageText
         }
     }
 
+    /**
+     * @param $imageTextId 图文总数
+     * @return int 总数
+     */
+    public function  totalGoods()
+    {
+
+        try
+        {
+
+            $response= $this->httpClient->get("/api/goods-total");
+            $data=json_decode($response->getBody()->getContents(),true);
+            return $data['total'];
+        }catch (\Exception $e)
+        {
+            $this->error=$e->getCode();
+            if($e->hasResponse())
+            {
+                $data=json_decode($e->getResponse()->getBody()->getContents(),true);
+                $this->errorMessage=$data['message'];
+            }
+            else{
+                $this->errorMessage=$e->getMessage();
+            }
+            return false;
+        }
+
+    }
+
 
     public function getError()
     {
@@ -225,14 +254,5 @@ class ImageText
 
         return $this->errorMessage;
     }
-
-
-
-
-
-
-
-
-
 
 }
