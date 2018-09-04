@@ -10,6 +10,7 @@ namespace LuxuryMore;
 use GuzzleHttp\Client;
 use LuxuryMore\ImageText;
 use LuxuryMore\ImageTextOrigin;
+use LuxuryMore\PmGoods;
 use LuxuryMore\User as LuxuryUser;
 use LuxuryMore\Authorization;
 use App\Models\User;
@@ -42,7 +43,6 @@ class LuxuryMoreClient
         $authorization=new Authorization($this->secret,$user);
         $token=$authorization->getToken();
         $this->httpClient = new Client(['base_uri' => $this->baseUrl,'headers' => ['Accept'=>'application/prs.luxurymore.inventory-v1+json','Content-Type'=>'application/json','Authorization' => "Bearer {$token}"]]);
-
         return new ImageTextOrigin($this->httpClient);
     }
 
@@ -55,5 +55,16 @@ class LuxuryMoreClient
         $token=$authorization->getToken();
         $this->httpClient = new Client(['base_uri' => $this->baseUrl,'headers' => ['Accept'=>'application/prs.luxurymore.inventory-v1+json','Content-Type'=>'application/json','Authorization' => "Bearer {$token}"]]);
         return new LuxuryUser($this->httpClient);
+    }
+
+    /**
+     * 拍卖的客户端
+     */
+    public function PmGoods(User $user)
+    {
+        $authorization=new Authorization($this->secret,$user);
+        $token=$authorization->getToken();
+        $this->httpClient = new Client(['base_uri' => $this->baseUrl,'headers' => ['Accept'=>'application/prs.luxurymore.inventory-v1+json','Content-Type'=>'application/json','Authorization' => "Bearer {$token}"]]);
+        return new PmGoods($this->httpClient);
     }
 }

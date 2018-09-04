@@ -24,7 +24,6 @@ class ImageText
      */
     public function addImageText($imageText)
     {
-
         try
         {
             $response=$this->httpClient->POST('/api/goods',['json'=>$imageText]);
@@ -33,7 +32,6 @@ class ImageText
         }
         catch (\Exception $e)
         {
-            dd($e);
             $this->error=$e->getCode();
             if($e->hasResponse())
             {
